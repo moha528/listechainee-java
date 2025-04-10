@@ -4,7 +4,7 @@ class IntervFerme extends IntervOuvert {
 
     public IntervFerme(int bInf, int bSup) {
         super(bInf, bSup);
-        this.card = bSup - bInf + 1; // Inclut les bornes
+        this.card = bSup - bInf + 1;
     }
 
     @Override
@@ -18,6 +18,11 @@ class IntervFerme extends IntervOuvert {
             return i.bInf >= bInf && i.bSup <= bSup;
         }
         return i.bInf > bInf && i.bSup < bSup;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + bInf + ", " + bSup + "]";
     }
 
 }

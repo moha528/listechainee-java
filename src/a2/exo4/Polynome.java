@@ -49,5 +49,4 @@ public class Polynome {
         }
         return sb.toString().replace("x^0", "").replace("x^1", "x");
     }
-
 }

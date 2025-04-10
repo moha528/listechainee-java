@@ -18,5 +18,13 @@ public class Polynome2 extends Polynome {
                 (-b - Math.sqrt(delta)) / (2.0 * a)
         };
     }
+
+    @Override
+    public String toString() {
+        int a = coefficients[2];
+        int b = coefficients[1];
+        int c = coefficients[0];
+        return String.format("%dx² + %dx + %d", a, b, c);
+    }
 }
 

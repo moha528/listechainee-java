@@ -1,23 +1,27 @@
+package a2.exo1;
+
 public class Main {
     public static void main(String[] args) {
-        Liste liste = new Liste();
+        Liste liste = new Liste("5");
         
         // Test d'ajout d'éléments
-        liste.ajouter(5);
-        liste.ajouter(10);
-        liste.ajouter(15);
+        liste.append(new Liste("10"));
+        liste.append(new Liste("15"));
         
         // Test d'affichage
         System.out.println("Liste après ajout :");
-        liste.afficher();
+        System.out.println(liste);
         
-        // Test de suppression
-        liste.supprimer(10);
-        System.out.println("\nListe après suppression de 10 :");
-        liste.afficher();
+        // Test de suppression des éléments inférieurs
+        Liste removed = liste.supprimerInferieur();
+        System.out.println("\nListe après suppression des éléments inférieurs :");
+        System.out.println(liste);
+        System.out.println("Éléments supprimés :");
+        System.out.println(removed);
         
-        // Test de recherche
-        System.out.println("\nRecherche de 5 : " + liste.rechercher(5));
-        System.out.println("Recherche de 20 : " + liste.rechercher(20));
+        // Test de tri rapide
+        Liste sorted = liste.quicksort();
+        System.out.println("\nListe triée :");
+        System.out.println(sorted);
     }
 } 

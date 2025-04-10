@@ -34,10 +34,8 @@ public class Liste {
 
         while (current.next != null) {
             if (current.next.value.compareTo(pivot) < 0) {
-
                 Liste temp = current.next;
                 current.next = temp.next;
-
                 temp.next = removed;
                 removed = temp;
             } else {
@@ -74,4 +72,17 @@ public class Liste {
         }
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        Liste current = this;
+        while (current != null) {
+            sb.append(current.value);
+            if (current.next != null) {
+                sb.append(" -> ");
+            }
+            current = current.next;
+        }
+        return sb.toString();
+    }
 }

@@ -31,4 +31,9 @@ public class IntervOuvert {
         return newBInf >= newBSup ? new IntervOuvert(0, 0) : new IntervOuvert(newBInf, newBSup);
     }
 
+    @Override
+    public String toString() {
+        return "(" + bInf + ", " + bSup + ")";
+    }
+
 }
