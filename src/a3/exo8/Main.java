@@ -2,36 +2,47 @@ package a3.exo8;
 
 public class Main {
     public static void main(String[] args) {
-        // Création de l'index
-        ABR index = new ABR();
-
-        // Ajout des noms et des pages selon l'exemple
-        index.ajoutNomPropre("Fatou", new int[]{10, 250, 300});
-        index.ajoutNomPropre("Mamadou", new int[]{3, 14, 101});
-        index.ajoutNomPropre("Oussenou", new int[]{11, 50});
-        index.ajoutNomPropre("Pierre", new int[]{3, 7, 100, 237});
-        index.ajoutNomPropre("Soda", new int[]{6, 10, 34, 66, 98});
-
-        // Affichage de l'index
-        System.out.println("Index initial :");
-        index.afficherIndex();
-        System.out.println();
-
-        // Test de suppression d'un numéro de page
-        System.out.println("Après suppression de la page 10 pour Fatou :");
-        index.supprimerNumero("Fatou", 10);
-        index.afficherIndex();
-        System.out.println();
-
-        // Test d'ajout de nouvelles pages
-        System.out.println("Après ajout de la page 200 pour Mamadou :");
-        index.ajoutNomPropre("Mamadou", new int[]{200});
-        index.afficherIndex();
-        System.out.println();
-
-        // Test avec un nouveau nom
-        System.out.println("Après ajout de 'Alpha' avec les pages 1, 2, 3 :");
-        index.ajoutNomPropre("Alpha", new int[]{1, 2, 3});
-        index.afficherIndex();
+        // Création de l'exemple donné dans l'exercice
+        ABR index = null;
+        
+        // Ajout des noms et numéros de page pour Fatou
+        int[] pagesFatou = {110, 250, 300};
+        index = ABR.ajout_nompropre("Fatou", pagesFatou, pagesFatou.length, index);
+        
+        // Ajout des noms et numéros de page pour Mamadou
+        int[] pagesMamadou = {3, 14, 110};
+        index = ABR.ajout_nompropre("Mamadou", pagesMamadou, pagesMamadou.length, index);
+        
+        // Ajout des noms et numéros de page pour Ousmane
+        int[] pagesOusmane = {1, 50};
+        index = ABR.ajout_nompropre("Ousmane", pagesOusmane, pagesOusmane.length, index);
+        
+        // Ajout des noms et numéros de page pour Pierre
+        int[] pagesPierre = {110, 200, 287};
+        index = ABR.ajout_nompropre("Pierre", pagesPierre, pagesPierre.length, index);
+        
+        // Ajout des noms et numéros de page pour Soda
+        int[] pagesSoda = {5, 10, 34, 66, 99};
+        index = ABR.ajout_nompropre("Soda", pagesSoda, pagesSoda.length, index);
+        
+        System.out.println("---- Affichage de l'index initial ----");
+        ABR.afficher_index(index);
+        
+        System.out.println("\n---- Représentation graphique de l'ABR ----");
+        ABR.afficher_arbre(index, "", true);
+        
+        // Test de suppression d'un numéro
+        System.out.println("\n---- Après suppression de la page 110 pour Pierre ----");
+        index = ABR.supprimer_numero("Pierre", 110, index);
+        ABR.afficher_index(index);
+        
+        // Test d'ajout d'un nouveau nom
+        System.out.println("\n---- Après ajout de David avec les pages 7, 12, 45 ----");
+        int[] pagesDavid = {7, 12, 45};
+        index = ABR.ajout_nompropre("David", pagesDavid, pagesDavid.length, index);
+        ABR.afficher_index(index);
+        
+        System.out.println("\n---- Nouvelle représentation graphique de l'ABR ----");
+        ABR.afficher_arbre(index, "", true);
     }
-} 
+}

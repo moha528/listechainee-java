@@ -2,26 +2,33 @@ package a2.exo1;
 
 public class Main {
     public static void main(String[] args) {
-        Liste liste = new Liste("5");
-        
-        // Test d'ajout d'éléments
-        liste.append(new Liste("10"));
-        liste.append(new Liste("15"));
-        
-        // Test d'affichage
-        System.out.println("Liste après ajout :");
-        System.out.println(liste);
-        
-        // Test de suppression des éléments inférieurs
-        Liste removed = liste.supprimerInferieur();
-        System.out.println("\nListe après suppression des éléments inférieurs :");
-        System.out.println(liste);
-        System.out.println("Éléments supprimés :");
-        System.out.println(removed);
-        
-        // Test de tri rapide
-        Liste sorted = liste.quicksort();
-        System.out.println("\nListe triée :");
-        System.out.println(sorted);
+        Liste liste = new Liste("D",
+                new Liste("B",
+                        new Liste("G",
+                                new Liste("A",
+                                        new Liste("F",
+                                                new Liste("C",
+                                                        new Liste("E", null)))))));
+
+        System.out.println("Liste originale: " + liste);
+
+        Liste listeAppend = new Liste("X", new Liste("Y", new Liste("Z", null)));
+        Liste liste2 = new Liste("M", null);
+        liste2.append(listeAppend);
+        System.out.println("Test append: " + liste2);
+
+        Liste listeInf = new Liste("M",
+                new Liste("H",
+                        new Liste("P",
+                                new Liste("E",
+                                        new Liste("Q",
+                                                new Liste("J", null))))));
+        System.out.println("Avant suppression des inférieurs à M: " + listeInf);
+        Liste inferieurs = listeInf.suprimerInferieur();
+        System.out.println("Après suppression: " + listeInf);
+        System.out.println("Éléments inférieurs extraits: " + (inferieurs != null ? inferieurs : "aucun"));
+
+        Liste listeTri = liste.quicksort();
+        System.out.println("Liste triée: " + listeTri);
     }
-} 
+}

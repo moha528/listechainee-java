@@ -13,15 +13,13 @@ public class ListeEntiers {
         this.tete = tete;
     }
 
-    public void creerListe() {
-        Scanner scanner = new Scanner(System.in);
+    public void creerListe(Scanner scanner) {
         System.out.println("Entrez 10 entiers :");
         
         for (int i = 0; i < 10; i++) {
             int valeur = scanner.nextInt();
             ajouterFin(valeur);
         }
-        scanner.close();
     }
 
     private void ajouterFin(int valeur) {

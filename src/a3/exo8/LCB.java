@@ -3,124 +3,124 @@ package a3.exo8;
 public class LCB {
     private Maillon tete;
     private Maillon queue;
-
+    
     public LCB() {
         this.tete = null;
         this.queue = null;
     }
-
+    
     public Maillon getTete() {
         return tete;
     }
-
-    public void setTete(Maillon tete) {
-        this.tete = tete;
-    }
-
+    
     public Maillon getQueue() {
         return queue;
     }
-
-    public void setQueue(Maillon queue) {
-        this.queue = queue;
-    }
-
-    public LCB ajoutNumero(int num) {
-        Maillon nouveau = new Maillon(num);
+    
+    // Question 2: Fonction LCB_ajout_numero
+    public LCB ajout_numero(int num) {
+        // Création d'un nouveau maillon
+        Maillon nouveauMaillon = new Maillon(num);
         
+        // Si la liste est vide
         if (tete == null) {
-            tete = nouveau;
-            queue = nouveau;
+            tete = nouveauMaillon;
+            queue = nouveauMaillon;
             return this;
         }
-
-        // Si le numéro est plus petit que la tête, on l'ajoute au début
+        
+        // Si le numéro est inférieur à celui de la tête
         if (num < tete.getNumero()) {
-            nouveau.setSuivant(tete);
-            tete.setPrecedent(nouveau);
-            tete = nouveau;
+            nouveauMaillon.setSuiv(tete);
+            tete.setPrec(nouveauMaillon);
+            tete = nouveauMaillon;
             return this;
         }
-
-        // Si le numéro est plus grand que la queue, on l'ajoute à la fin
+        
+        // Si le numéro est supérieur à celui de la queue
         if (num > queue.getNumero()) {
-            nouveau.setPrecedent(queue);
-            queue.setSuivant(nouveau);
-            queue = nouveau;
+            queue.setSuiv(nouveauMaillon);
+            nouveauMaillon.setPrec(queue);
+            queue = nouveauMaillon;
             return this;
         }
-
-        // On cherche la position d'insertion
+        
+        // Insertion au milieu
         Maillon courant = tete;
         while (courant != null && courant.getNumero() < num) {
-            courant = courant.getSuivant();
+            courant = courant.getSuiv();
         }
-
-        // Si le numéro existe déjà, on ne fait rien
+        
+        // Si le numéro existe déjà, ne pas l'ajouter (éviter les doublons)
         if (courant != null && courant.getNumero() == num) {
             return this;
         }
-
-        // Insertion du nouveau maillon
-        nouveau.setPrecedent(courant.getPrecedent());
-        nouveau.setSuivant(courant);
-        courant.getPrecedent().setSuivant(nouveau);
-        courant.setPrecedent(nouveau);
-
+        
+        // Insertion avant le maillon courant
+        nouveauMaillon.setSuiv(courant);
+        nouveauMaillon.setPrec(courant.getPrec());
+        courant.getPrec().setSuiv(nouveauMaillon);
+        courant.setPrec(nouveauMaillon);
+        
         return this;
     }
-
-    public LCB supprimerNumero(int num) {
+    
+    // Question 4: Fonction pour supprimer un numéro
+    public boolean supprimer_numero(int num) {
         if (tete == null) {
-            return this;
+            return false; // Liste vide
         }
-
-        // Si le numéro est en tête
+        
+        // Si c'est la tête
         if (tete.getNumero() == num) {
-            tete = tete.getSuivant();
-            if (tete != null) {
-                tete.setPrecedent(null);
+            tete = tete.getSuiv();
+            if (tete == null) {
+                queue = null; // La liste est maintenant vide
             } else {
-                queue = null;
+                tete.setPrec(null);
             }
-            return this;
+            return true;
         }
-
-        // Si le numéro est en queue
+        
+        // Si c'est la queue
         if (queue.getNumero() == num) {
-            queue = queue.getPrecedent();
-            if (queue != null) {
-                queue.setSuivant(null);
-            } else {
-                tete = null;
-            }
-            return this;
+            queue = queue.getPrec();
+            queue.setSuiv(null);
+            return true;
         }
-
-        // Recherche du numéro dans la liste
-        Maillon courant = tete;
+        
+        // Recherche dans le reste de la liste
+        Maillon courant = tete.getSuiv();
         while (courant != null && courant.getNumero() != num) {
-            courant = courant.getSuivant();
+            courant = courant.getSuiv();
         }
-
-        // Si le numéro est trouvé, on le supprime
-        if (courant != null) {
-            courant.getPrecedent().setSuivant(courant.getSuivant());
-            courant.getSuivant().setPrecedent(courant.getPrecedent());
+        
+        // Si le numéro n'a pas été trouvé
+        if (courant == null) {
+            return false;
         }
-
-        return this;
+        
+        // Suppression du maillon
+        courant.getPrec().setSuiv(courant.getSuiv());
+        courant.getSuiv().setPrec(courant.getPrec());
+        
+        return true;
     }
-
-    public void afficher() {
+    
+    // Méthode pour afficher le contenu de la LCB
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
         Maillon courant = tete;
+        
         while (courant != null) {
-            System.out.print(courant.getNumero());
-            if (courant.getSuivant() != null) {
-                System.out.print(", ");
+            sb.append(courant.getNumero());
+            if (courant.getSuiv() != null) {
+                sb.append(", ");
             }
-            courant = courant.getSuivant();
+            courant = courant.getSuiv();
         }
-        System.out.println();
+        
+        return sb.toString();
     }
-} 
+}

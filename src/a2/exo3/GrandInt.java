@@ -1,65 +1,89 @@
-package a2.exo3;
-
-/**
- * Classe permettant de manipuler des grands entiers représentés sous forme de liste chaînée.
+package a2.exo3; /**
+ * La classe GrandInt permet de manipuler des entiers de taille arbitraire
+ * représentés sous forme de liste de chiffres.
+ * Par convention, le chiffre le plus significatif est en fin de liste
+ * et il est non nul, sauf pour la valeur zéro.
  */
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class GrandInt {
-    private int chiffre; // Chiffre de l'unité
-    private GrandInt suite; // Suite du nombre (chiffres plus significatifs)
+    // Liste des chiffres du grand entier
+    private List<Integer> chiffres;
 
     /**
-     * Constructeur privé utilisé pour construire un grand entier récursivement.
-     * @param chiffre Chiffre des unités.
-     * @param suite Partie restante du nombre.
+     * Constructeur privé qui construit un grand entier avec un chiffre suivi
+     * d'un autre grand entier.
+     *
+     * @param chiffre Le chiffre à ajouter en début de liste
+     * @param suite Le grand entier à ajouter après le chiffre
      */
     private GrandInt(int chiffre, GrandInt suite) {
-        this.chiffre = chiffre;
-        this.suite = suite;
+        this.chiffres = new ArrayList<>();
+        this.chiffres.add(chiffre);
+        if (suite != null) {
+            this.chiffres.addAll(suite.chiffres);
+        }
+
+        // Normalisation pour s'assurer que le chiffre le plus significatif n'est pas zéro
+        this.normaliser();
     }
 
     /**
-     * Constructeur public permettant de créer un GrandInt à partir d'un entier.
-     * @param nombre L'entier à convertir.
+     * Constructeur public qui convertit un nombre entier en grand entier.
+     *
+     * @param nombre Le nombre à convertir en grand entier
      */
     public GrandInt(int nombre) {
-        this.chiffre = nombre % 10;
-        if (nombre / 10 != 0) {
-            this.suite = new GrandInt(nombre / 10);
-        } else {
-            this.suite = null;
+        this.chiffres = new ArrayList<>();
+
+        // Cas spécial pour le zéro
+        if (nombre == 0) {
+            this.chiffres.add(0);
+            return;
+        }
+
+        // Conversion du nombre en liste de chiffres
+        while (nombre > 0) {
+            this.chiffres.add(nombre % 10);
+            nombre /= 10;
         }
     }
 
     /**
-     * Retourne une représentation sous forme de chaîne du grand entier.
-     * @return La chaîne représentant le nombre.
+     * Normalise la représentation du grand entier en supprimant les zéros
+     * non significatifs en fin de liste, sauf pour la valeur zéro.
      */
-    @Override
-    public String toString() {
-        if (suite == null) {
-            return Integer.toString(chiffre);
+    private void normaliser() {
+        while (this.chiffres.size() > 1 && this.chiffres.get(this.chiffres.size() - 1) == 0) {
+            this.chiffres.remove(this.chiffres.size() - 1);
         }
-        return suite.toString() + chiffre;
+    }
+
+    /**
+     * Retourne une chaîne de caractères représentant la liste des chiffres du grand entier.
+     *
+     * @return Une chaîne représentant le grand entier
+     */
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        // Parcours de la liste en commençant par le chiffre le plus significatif
+        for (int i = this.chiffres.size() - 1; i >= 0; i--) {
+            sb.append(this.chiffres.get(i));
+        }
+
+        return sb.toString();
     }
 
     /**
      * Retourne le nombre de chiffres du grand entier.
-     * @return Le nombre de chiffres.
+     *
+     * @return Le nombre de chiffres
      */
     public int nombreDeChiffres() {
-        if (suite == null) {
-            return 1;
-        }
-        return 1 + suite.nombreDeChiffres();
+        return this.chiffres.size();
     }
 
-    public static void main(String[] args) {
-        GrandInt grand1 = new GrandInt(12345);
-        System.out.println("Représentation de 12345 : " + grand1.toString());
-        System.out.println("Nombre de chiffres : " + grand1.nombreDeChiffres());
-
-        GrandInt grand2 = new GrandInt(7);
-        System.out.println("Représentation de 7 : " + grand2.toString());
-        System.out.println("Nombre de chiffres : " + grand2.nombreDeChiffres());
-    }
 }

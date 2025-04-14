@@ -2,36 +2,32 @@ package a3.exo8;
 
 public class Maillon {
     private int numero;
-    private Maillon suivant;
-    private Maillon precedent;
-
+    private Maillon suiv;
+    private Maillon prec;
+    
     public Maillon(int numero) {
         this.numero = numero;
-        this.suivant = null;
-        this.precedent = null;
+        this.suiv = null;
+        this.prec = null;
     }
-
+    
     public int getNumero() {
         return numero;
     }
-
-    public void setNumero(int numero) {
-        this.numero = numero;
+    
+    public Maillon getSuiv() {
+        return suiv;
     }
-
-    public Maillon getSuivant() {
-        return suivant;
+    
+    public void setSuiv(Maillon suiv) {
+        this.suiv = suiv;
     }
-
-    public void setSuivant(Maillon suivant) {
-        this.suivant = suivant;
+    
+    public Maillon getPrec() {
+        return prec;
     }
-
-    public Maillon getPrecedent() {
-        return precedent;
+    
+    public void setPrec(Maillon prec) {
+        this.prec = prec;
     }
-
-    public void setPrecedent(Maillon precedent) {
-        this.precedent = precedent;
-    }
-} 
+}
