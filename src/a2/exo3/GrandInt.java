@@ -1,4 +1,6 @@
-package a2.exo3; /**
+package a2.exo3; 
+
+/**
  * La classe GrandInt permet de manipuler des entiers de taille arbitraire
  * représentés sous forme de liste de chiffres.
  * Par convention, le chiffre le plus significatif est en fin de liste
